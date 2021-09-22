@@ -3,7 +3,9 @@ library(haven)
 library(dplyr)
 setwd("/Users/aveniaghazarian/Documents/Task4")
 
+
 Ak91 <- read_dta(file = "NEW7080.dta")
+nrow(Ak91)
 Ak91_clean <- Ak91%>% rename(
   AGE	=	v1,
   AGEQ	=	v2,
@@ -30,6 +32,7 @@ Ak91_clean <- Ak91%>% rename(
 Ak91_clean$AGEQ<-ifelse(Ak91_clean$CENSUS==80, Ak91_clean$AGEQ-1900, Ak91_clean$AGEQ)
 Ak91_clean$AGEQSQ<-sqrt(Ak91_clean$AGEQ)
 ################## Generating YOB Dummies ###################
+timee <- seq(2,10,1)
 
 Ak91_clean <- Ak91_clean %>% mutate(YR20 = ifelse(YOB==1920|YOB==30|YOB==40, 1, 0),
                       YR21 = ifelse(YOB==1921|YOB==31|YOB==41, 1, 0),
@@ -76,9 +79,10 @@ Ak91_clean <- Ak91_clean %>% mutate(YR20 = ifelse(YOB==1920|YOB==30|YOB==40, 1, 
                       QTR328 = QTR3*YR28,
                       QTR329 = QTR3*YR29)
 
-nrow(Ak91_clean)
 Cohort2030<-Ak91_clean%>%filter(COHORT<20.30)
-save(Cohort2030, file="Cohort2030.dta")
+nrow(Ak91)
+nrow(Cohort2030)
+save(Cohort2030, file="Cohort2030.RData")
 save(Ak91_clean, file="Ak91_clean.RData")
 
 

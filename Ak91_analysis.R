@@ -56,7 +56,7 @@ data<-cbind(data, time)
 
 ggplot(data, aes(x = time, y = LWKLYWGE)) + 
   geom_line() +
-  geom_point(aes(shape = factor(QOB),fill = factor(QOB)), size = 0.3)+
+  geom_point(aes(shape = as.factor(QOB),fill = factor(QOB)), size = 0.3)+
   xlab("Year of Birth") + 
   ylab("Log Weekly Earnings")
 
